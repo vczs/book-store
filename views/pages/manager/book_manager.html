@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>图书管理</title>
+<link type="text/css" rel="stylesheet" href="/static/css/style.css" >
+	<script src="/static/script/jquery-1.7.2.js"></script>
+	<script>
+		$(function () {
+			$(".deleteBook").click(function () {
+				var title = $(this).attr("id");
+				return  confirm("确定要删除{"+title+"}吗?");
+			})
+		})
+	</script>
+</head>
+<body>
+	
+	<div id="header">
+			<img class="logo_img" alt="" src="/static/img/logo.gif" >
+			<span class="wel_word">图书管理系统</span>
+			<div>
+				<a href="/getOrder">订单管理</a>
+				<a href="/pages/manager/manager.html">后台管理</a>
+				<a href="/main">返回商城</a>
+			</div>
+	</div>
+	
+	<div id="main">
+		<table>
+			<tr>
+				<td>名称</td>
+				<td>价格</td>
+				<td>作者</td>
+				<td>销量</td>
+				<td>库存</td>
+				<td colspan="2">操作</td>
+			</tr>
+		{{range .Books}}
+			<tr>
+				<td>{{.Title}}</td>
+				<td>{{.Price}}</td>
+				<td>{{.Author}}</td>
+				<td>{{.Sales}}</td>
+				<td>{{.Stock}}</td>
+				<td><a href="/toUpdateOrAddBooks?bookId={{.Id}}">修改</a></td>
+				<td><a id="{{.Title}}" class="deleteBook"  href="/deleteBooks?bookId={{.Id}}">删除</a></td>
+			</tr>	
+			{{end}}
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><a href="/toUpdateOrAddBooks">添加图书</a></td>
+			</tr>	
+		</table>
+
+		<div id="page_nav">
+			{{if .IsHasPrev}}
+			<a href="/getPageBooks">[首页]</a>
+			<a href="/getPageBooks?pageNo={{.GetPrev}}">[上一页]</a>
+			{{end}}
+			&nbsp;&nbsp;当前是第{{.PageNo}}页，共{{.TotalPageNo}}页，共{{.TotalRecord}}条记录&nbsp;&nbsp;
+			{{if .IsHasNext}}
+			<a href="/getPageBooks?pageNo={{.GetNext}}">[下一页]</a>
+			<a href="/getPageBooks?pageNo={{.TotalPageNo}}">[末页]</a>
+		{{end}}
+			到第<input value="{{.PageNo}}" name="pn" id="pn_input"/>页
+			<input type="button" value="确定" id="sub">
+			<script>
+				$("#sub").click(function(){
+					var pageNo = $("#pn_input").val();
+					location = "/getPageBooks?pageNo="+pageNo
+				})
+			</script>
+		</div>
+
+	</div>
+	
+	<div id="bottom">
+		<span>
+			&copy;vincenzo书城. github:github.com/vcz
+		</span>
+	</div>
+</body>
+</html>

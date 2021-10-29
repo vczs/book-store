@@ -1,0 +1,43 @@
+//创建cart表的sql语句
+CREATE TABLE cart(
+    id VARCHAR(100) PRIMARY KEY,
+    total_count INT NOT NULL,
+    total_amount DOUBLE(11,2) NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES users(id)
+)
+
+//创建cart_items表的sql语句
+CREATE TABLE cart_items(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    COUNT INT NOT NULL,
+    amount DOUBLE(11,2) NOT NULL,
+    book_id INT NOT NULL,
+    cart_id VARCHAR(100) NOT NULL,
+    FOREIGN KEY(cart_id) REFERENCES carts(id),
+    FOREIGN KEY(book_id) REFERENCES books(id)
+)
+
+//创建orders表的sql语句
+CREATE TABLE orders(
+    id VARCHAR(100) PRIMARY KEY,
+    create_time DATETIME NOT NULL,
+    total_count INT NOT NULL,
+    total_amount DOUBLE(11,2) NOT NULL,
+    state INT NOT NULL,
+    user_id INT,
+    FOREIGN KEY(user_id) REFERENCES users(id)
+)
+
+//创建order_items表的sql语句
+CREATE TABLE order_items(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    COUNT INT NOT NULL,
+    amount DOUBLE(11,2) NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    price DOUBLE(11,2) NOT NULL,
+    img_path VARCHAR(100) NOT NULL,
+    order_id VARCHAR(100) NOT NULL,
+    FOREIGN KEY(order_id) REFERENCES orders(id)
+)

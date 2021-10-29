@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>购物车</title>
+<link type="text/css" rel="stylesheet" href="/static/css/style.css">
+
+	<script src="/static/script/jquery-1.7.2.js"></script>
+	<script>
+		$(function () {
+			$("#emptyCart").click(function () {
+				return confirm("清空购物车？？？");
+			});
+			$(".deleteCartItem").click(function () {
+				var title = $(this).attr("id");
+				return confirm("确定要删除【"+title+"】购物项吗？？？");
+			});
+			//更新购物车购物项数量
+			$(".updateCartItem").change(function(){
+				var cartItemId = $(this).attr("id");
+				var bookCount = $(this).val();
+				//发送请求
+				//location = "/updateCartItem?cartItemId="+cartItemId+"&bookCount="+bookCount;
+				var url="/updateCartItem";
+				var params = {"cartItemId":cartItemId,"bookCount":bookCount};
+				var $tdEle = $(this).parent().next().next();
+				$.post(url,params,function (res) {
+					$("#totalCount").text(res.TotalCount);
+					$("#totalAmount").text(res.TotalAmount);
+					$tdEle.text(res.Amount);
+				},"json");
+			});
+		});
+	</script>
+
+</head>
+<body>
+	
+	<div id="header">
+			<img class="logo_img" alt="" src="/static/img/logo.gif" >
+			<span class="wel_word">购物车</span>
+		{{if .UserId}}
+			<div>
+				<span>欢迎<span class="um_span">{{.UserName}}</span>光临vincenzo书城</span>
+				<a href="/getMyOrder">我的订单</a>
+				<a href="/main">返回商城</a>
+			</div>
+		{{else}}
+			<div>
+				<a href="/pages/user/login.html">登录</a>
+				<a href="/pages/user/regist.html">注册</a>
+			</div>
+		{{end}}
+	</div>
+	<div id="main">
+		{{if .IsEmpty}}
+			<br><br><br><br><br><br>
+			<h1 style="text-align: center">您的购物车空空如也，快去<a href="/main" style="color: red">&nbsp;购物&nbsp;</a>吧！</h1>
+		{{else}}
+			<table>
+				<tr>
+					<td>商品名称</td>
+					<td>数量</td>
+					<td>单价</td>
+					<td>金额</td>
+					<td>操作</td>
+				</tr>
+				{{range .CartItems}}
+					<tr>
+						<td>{{.Book.Title}}</td>
+						<td><input id="{{.CartItemId}}" class="updateCartItem" type="text" value="{{.Count}}" style="text-align: center;width: 40px"/></td>
+						<td>{{.Book.Price}}</td>
+						<td>{{.Amount}}</td>
+						<td><a id="{{.Book.Title}}" class="deleteCartItem" href="/deleteCartItem?cartItemId={{.CartItemId}}">删除</a></td>
+					</tr>
+				{{end}}
+			</table>
+			<div class="cart_info">
+				<span class="cart_span">购物车中共有<span class="b_count" id="totalCount">{{.TotalCount}}</span>件商品</span>
+				<span class="cart_span">总金额<span class="b_price" id="totalAmount">{{.TotalAmount}}</span>元</span>
+				<span class="cart_span"><a href="/main">继续购物</a></span>
+				<span class="cart_span"><a href="/deleteCart?cartId={{.CartId}}" id="emptyCart">清空购物车</a></span>
+				<span class="cart_span"><a href="/checkout">去结账</a></span>
+			</div>
+		{{end}}
+	</div>
+	<div id="bottom">
+		<span>
+			&copy;vincenzo书城. github:github.com/vcz
+		</span>
+	</div>
+</body>
+</html>

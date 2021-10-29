@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>vincenzo书城会员注册页面</title>
+<link type="text/css" rel="stylesheet" href="/static/css/style.css" >
+<style type="text/css">
+	h1 {
+		text-align: center;
+		margin-top: 200px;
+	}
+	
+	h1 a {
+		color:red;
+	}
+</style>
+</head>
+<body>
+		<div id="header">
+				<img class="logo_img" alt="" src="/static/img/logo.gif" >
+				<div>
+					<span>欢迎<span class="um_span">{{.UserName}}</span>光临vincenzo书城</span>
+					<a href="/logout">注销</a>&nbsp;&nbsp;
+					<a href="/getMyOrder">我的订单</a>
+					<a href="/getCartInfo">购物车</a>
+					<a href="/main">返回商城</a>
+				</div>
+		</div>
+		
+		<div id="main">
+		
+			<h1>欢迎回来 <a href="/main">转到主页</a></h1>
+	
+		</div>
+		
+		<div id="bottom">
+			<span>
+				&copy;vincenzo书城. github:github.com/vcz
+			</span>
+		</div>
+</body>
+</html>

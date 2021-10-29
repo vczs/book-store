@@ -1,0 +1,13 @@
+CREATE TABLE `orders` (
+  `id` varchar(100) NOT NULL,
+  `create_time` varchar(100) NOT NULL,
+  `total_count` int NOT NULL,
+  `total_amount` double(11,2) NOT NULL,
+  `state` int NOT NULL,
+  `user_name` varchar(100) NOT NULL,
+  `user_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
