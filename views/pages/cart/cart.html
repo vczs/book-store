@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>购物车</title>
+<link rel="icon" href="/static/img/icon.ico" sizes="32x32">
 <link type="text/css" rel="stylesheet" href="/static/css/style.css">
 
 	<script src="/static/script/jquery-1.7.2.js"></script>
@@ -43,7 +44,7 @@
 			<div>
 				<span>欢迎<span class="um_span">{{.UserName}}</span>光临vincenzo书城</span>
 				<a href="/getMyOrder">我的订单</a>
-				<a href="/main">返回商城</a>
+				<a href="/">返回商城</a>
 			</div>
 		{{else}}
 			<div>
@@ -55,7 +56,7 @@
 	<div id="main">
 		{{if .IsEmpty}}
 			<br><br><br><br><br><br>
-			<h1 style="text-align: center">您的购物车空空如也，快去<a href="/main" style="color: red">&nbsp;购物&nbsp;</a>吧！</h1>
+			<h1 style="text-align: center">您的购物车空空如也，快去<a href="/" style="color: red">&nbsp;购物&nbsp;</a>吧！</h1>
 		{{else}}
 			<table>
 				<tr>
@@ -78,7 +79,7 @@
 			<div class="cart_info">
 				<span class="cart_span">购物车中共有<span class="b_count" id="totalCount">{{.TotalCount}}</span>件商品</span>
 				<span class="cart_span">总金额<span class="b_price" id="totalAmount">{{.TotalAmount}}</span>元</span>
-				<span class="cart_span"><a href="/main">继续购物</a></span>
+				<span class="cart_span"><a href="/">继续购物</a></span>
 				<span class="cart_span"><a href="/deleteCart?cartId={{.CartId}}" id="emptyCart">清空购物车</a></span>
 				<span class="cart_span"><a href="/checkout">去结账</a></span>
 			</div>

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>订单管理</title>
+<link rel="icon" href="/static/img/icon.ico" sizes="32x32">
 <link type="text/css" rel="stylesheet" href="/static/css/style.css" >
 </head>
 <body>
@@ -12,43 +13,48 @@
 			<div>
 				<a href="/getPageBooks">图书管理</a>
 				<a href="/pages/manager/manager.html">后台管理</a>
-				<a href="/main">返回商城</a>
+				<a href="/">返回商城</a>
 			</div>
 	</div>
 	
 	<div id="main">
-		<table>
-			<tr>
-				<th>单号</th>
-				<th>收件人</th>
-				<th>日期</th>
-				<th>数量</th>
-				<th>金额</th>
-				<th>详情</th>
-				<th>发货</th>
-			</tr>		
-		{{range .}}
-			<tr>
-				<td>{{.OrderId}}</td>
-				<td>{{.UserName}}</td>
-				<td>{{.CreateTime}}</td>
-				<td>{{.TotalCount}}</td>
-				<td>{{.TotalAmount}}</td>
-				<td><a href="/getOrderInfo?orderId={{.OrderId}}">查看详情</a></td>
-				<td class="state">
-					{{if .NoSend}}
-					<a href="/sendOrder?orderId={{.OrderId}}">发货</a>
-					{{end}}
-					{{if .OkSend}}
-					等待确认收货
-					{{end}}
-					{{if .Complete}}
-						<span style="color: red">交易完成</span>
-					{{end}}
-				</td>
-			</tr>
-		{{end}}		
-		</table>
+		{{if .IsEmpty}}
+			<br><br><br><br><br><br><br><br>
+			<h1 style="text-align: center;color: red;">暂时没有需要处理的订单哦~</h1>
+		{{else}}
+			<table>
+					<tr>
+						<th>单号</th>
+						<th>收件人</th>
+						<th>日期</th>
+						<th>数量</th>
+						<th>金额</th>
+						<th>详情</th>
+						<th>发货</th>
+					</tr>		
+				{{range .Orders}}
+					<tr>
+						<td>{{.OrderId}}</td>
+						<td>{{.UserName}}</td>
+						<td>{{.CreateTime}}</td>
+						<td>{{.TotalCount}}</td>
+						<td>{{.TotalAmount}}</td>
+						<td><a href="/getOrderInfo?orderId={{.OrderId}}">查看详情</a></td>
+						<td class="state">
+							{{if .NoSend}}
+							<a href="/sendOrder?orderId={{.OrderId}}">发货</a>
+							{{end}}
+							{{if .OkSend}}
+							等待确认收货
+							{{end}}
+							{{if .Complete}}
+								<span style="color: red">交易完成</span>
+							{{end}}
+						</td>
+					</tr>
+				{{end}}		
+			</table>
+		{{end}}
 	</div>
 	
 	<div id="bottom">

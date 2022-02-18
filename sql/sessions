@@ -3,7 +3,6 @@ CREATE TABLE `sessions` (
   `user_name` varchar(100) NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`session_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

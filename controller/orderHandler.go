@@ -14,14 +14,24 @@ type MyOrder struct {
 	IsEmpty  bool
 }
 
+type Order struct {
+	Orders  []*model.Order
+	IsEmpty bool
+}
+
 //订单管理处理器
 func GetOrder(w http.ResponseWriter, r *http.Request) {
-	orders, _ := dao.GetOrders()
-	if orders != nil {
-		path, _ := os.Getwd()
-		t := template.Must(template.ParseFiles(path + "/views/pages/order/order_manager.html"))
-		t.Execute(w, orders)
+	orders, err := dao.GetOrders()
+	order := &Order{}
+	if len(orders) < 1 || err != nil {
+		order.IsEmpty = true
+	} else {
+		order.IsEmpty = false
+		order.Orders = orders
 	}
+	path, _ := os.Getwd()
+	t := template.Must(template.ParseFiles(path + "/views/pages/order/order_manager.html"))
+	t.Execute(w, order)
 }
 
 //订单详情处理器

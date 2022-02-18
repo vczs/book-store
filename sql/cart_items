@@ -6,8 +6,6 @@ CREATE TABLE `cart_items` (
   `cart_id` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `cart_id` (`cart_id`),
-  KEY `book_id` (`book_id`),
-  CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`),
-  CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=utf8mb3;
+  KEY `book_id` (`book_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

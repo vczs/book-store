@@ -57,7 +57,7 @@ func bookHandler() {
 
 func cartHandler() {
 	//去添加图书到购物车
-	http.HandleFunc("/addBook2Cart", controller.AddBook2Cart)
+	http.HandleFunc("/addBookCart", controller.AddBookCart)
 	//去获取购物车信息
 	http.HandleFunc("/getCartInfo", controller.GetCartInfo)
 	//去清空购物车

@@ -9,11 +9,11 @@
 	<script>
 		$(function(){
 			//给添加购物车的按钮绑定单击事件
-			$(".addBook2Cart").click(function(){
+			$(".addBookCart").click(function(){
 				//获取要添加的图书的id
 				var bookId = $(this).attr("id");
 				//设置请求的url
-				var url = "/addBook2Cart"
+				var url = "/addBookCart"
 				//设置请求参数
 				var param = {"bookId":bookId}
 				//发送Ajax请求
@@ -91,7 +91,7 @@
 					</div>
 					<div class="book_add">
 						{{if .Stock}}
-						<button id={{.Id}} class="addBook2Cart">加入购物车</button>
+						<button id={{.Id}} class="addBookCart">加入购物车</button>
 						{{else}}
 							<span style="color: red">已售空</span>
 						{{end}}

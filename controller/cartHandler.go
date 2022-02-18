@@ -17,7 +17,7 @@ type Data struct {
 }
 
 //添加图书到购物车处理器
-func AddBook2Cart(w http.ResponseWriter, r *http.Request) {
+func AddBookCart(w http.ResponseWriter, r *http.Request) {
 	//获取session得到当前用户id
 	session, ok := isLogin(r)
 	if session != nil && ok {

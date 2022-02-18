@@ -104,9 +104,6 @@ func UpdateOrAddBooks(w http.ResponseWriter, r *http.Request) {
 
 //获取图书价格范围分页处理器
 func GetPageBooksByPrice(w http.ResponseWriter, r *http.Request) {
-
-	fmt.Println(r.RequestURI)
-
 	//获取要显示的页码
 	pageNo := r.FormValue("pageNo")
 	//获取价格范围
@@ -138,19 +135,4 @@ func GetPageBooksByPrice(w http.ResponseWriter, r *http.Request) {
 	path, _ := os.Getwd()
 	t := template.Must(template.ParseFiles(path + "/views/pages/index.html"))
 	t.Execute(w, page)
-}
-
-//GetPageBooksByPrice()分离出来的一个小方法 判断客户端是否已经登录
-func isLogin(r *http.Request) (*model.Session, bool) {
-	//获取cookie 判断是否已登录
-	cookie, err := r.Cookie("user")
-	if err != nil {
-		return nil, false
-	}
-	cookieValue := cookie.Value
-	session, err := dao.GetSessionById(cookieValue)
-	if err != nil {
-		return nil, false
-	}
-	return session, true
 }

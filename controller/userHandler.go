@@ -4,6 +4,8 @@ import (
 	"book-store/dao"
 	"book-store/model"
 	"book-store/utils"
+	"crypto/md5"
+	"fmt"
 	"html/template"
 	"net/http"
 	"os"
@@ -33,9 +35,10 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		//已经登录 就去首页
 		GetPageBooksByPrice(w, r)
 	} else {
-		username := r.PostFormValue("username")        //获取post表单输入的的username值
-		password := r.PostFormValue("password")        //获取post表单输入的的password值
-		user, err := dao.CheckUser(username, password) //检查用户名密码
+		username := r.PostFormValue("username") //获取post表单输入的的username值
+		password := r.PostFormValue("password") //获取post表单输入的的password值
+		md5_pwd := fmt.Sprintf("%x", md5.Sum([]byte(password)))
+		user, err := dao.CheckUser(username, md5_pwd) //检查用户名密码
 		if err == nil {
 			//登陆成功
 			uuid := utils.CreateUUID()
@@ -73,7 +76,8 @@ func RegistHandler(w http.ResponseWriter, r *http.Request) {
 	email := r.PostFormValue("email")       //获取post表单输入的的email值
 	if !dao.CheckUserName(username) {
 		//用户不存在 可以注册
-		user := &model.User{UserName: username, Password: password, Email: email}
+		md5_pwd := fmt.Sprintf("%x", md5.Sum([]byte(password)))
+		user := &model.User{UserName: username, Password: md5_pwd, Email: email}
 		err := dao.SaveUser(user) //将用户存储到mysql
 		if err == nil {
 			//存储成功 表示注册成功

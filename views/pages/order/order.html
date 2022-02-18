@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>我的订单</title>
+<link rel="icon" href="/static/img/icon.ico" sizes="32x32">
 <link type="text/css" rel="stylesheet" href="/static/css/style.css" >
 <style type="text/css">
 	h1 {
@@ -18,48 +19,47 @@
 			<span class="wel_word">我的订单</span>
 			<div>
 				<span>欢迎<span class="um_span">{{.UserName}}</span>光临vincenzo书城</span>
-				<a href="/logout">注销</a>&nbsp;&nbsp;
 				<a href="/getCartInfo">购物车</a>
-				<a href="/main">返回</a>
+				<a href="/">返回商城</a>
 			</div>
 	</div>
 	
 	<div id="main">
 		{{if .IsEmpty}}
 			<br><br>
-			<h1 style="text-align: center">您的订单空空如也，快去<a href="/main" style="color: red">&nbsp;购物&nbsp;</a>吧！</h1>
+			<h1 style="text-align: center">您的订单空空如也，快去<a href="/" style="color: red">&nbsp;购物&nbsp;</a>吧！</h1>
 		{{else}}
 			<table>
-				<tr>
-					<th>单号</th>
-					<th>收件人</th>
-					<th>日期</th>
-					<th>数量</th>
-					<th>金额</th>
-					<th>详情</th>
-					<th>发货</th>
-				</tr>		
-			{{range .Orders}}
-				<tr>
-					<td>{{.OrderId}}</td>
-					<td>{{.UserName}}</td>
-					<td>{{.CreateTime}}</td>
-					<td>{{.TotalCount}}</td>
-					<td>{{.TotalAmount}}</td>
-					<td><a href="/getOrderInfo?orderId={{.OrderId}}">查看详情</a></td>
-					<td class="state">
-						{{if .OkSend}}
-							<a href="/takeOrder?orderId={{.OrderId}}">确认收货</a>
-						{{end}}
-						{{if .NoSend}}
-							等待发货
-						{{end}}
-						{{if .Complete}}
-							<span style="color: red">交易完成</span>
-						{{end}}
-					</td>
-				</tr>
-			{{end}}		
+					<tr>
+						<th>单号</th>
+						<th>收件人</th>
+						<th>日期</th>
+						<th>数量</th>
+						<th>金额</th>
+						<th>详情</th>
+						<th>发货</th>
+					</tr>		
+				{{range .Orders}}
+					<tr>
+						<td>{{.OrderId}}</td>
+						<td>{{.UserName}}</td>
+						<td>{{.CreateTime}}</td>
+						<td>{{.TotalCount}}</td>
+						<td>{{.TotalAmount}}</td>
+						<td><a href="/getOrderInfo?orderId={{.OrderId}}">查看详情</a></td>
+						<td class="state">
+							{{if .OkSend}}
+								<a href="/takeOrder?orderId={{.OrderId}}">确认收货</a>
+							{{end}}
+							{{if .NoSend}}
+								等待发货
+							{{end}}
+							{{if .Complete}}
+								<span style="color: red">交易完成</span>
+							{{end}}
+						</td>
+					</tr>
+				{{end}}		
 			</table>
 		{{end}}
 	</div>
